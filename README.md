@@ -11,7 +11,9 @@ and I choosing to base the game behind that.
 
 # Game Ideas
 Heres a collection I many ideas I came up with. Who knows, maybe they will
-be used in future games.
+be used in future games. While trying to think of ideas, I'm working with
+the restrictions that it's a game for the NOKIA 3310. The game shouldn't
+be that complicated.
 
 ## Red Light, Green Light.
 One idea that instantly entered my head is making the game based around
@@ -35,3 +37,25 @@ interesting idea so I'll shelf it for future games.
 ## Samurai Kirby
 I could have the game be reaction based with you have to press a button
 at the right time. 
+
+## Slippery Platformer
+Now hear me out, what if I made a platformer where the ice is super 
+slippery, the player has to work around that and use it to their
+advantage?
+
+
+# Game Concept
+With the help of some people on discord, I finally figured out what the 
+game would be. It's based on the last idea in the previous section.
+
+So basically, the game is gonna be a platformer where you'd have to get
+to the end of the level. The game is gonna take place in a cold setting
+so because of that, you'd have a limited amount of time before you freeze
+to death.
+
+On top of that the floor would be slippery which makes getting to the
+end of the level more tricky. There would be campfiles that act as
+checkpoints, and it raises your temperature when standing near it.
+
+The story could be that you're stuck in a restaurant's freezer and you
+must escape before freezing to death.

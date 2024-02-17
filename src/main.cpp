@@ -1,4 +1,3 @@
-#include <cmath>
 #include <iostream>
 #include <raylib.h>
 #include "constants.h"
@@ -13,18 +12,12 @@ int main() {
   Rectangle dest = (Rectangle){0, 0, WINDOW::WIDTH, WINDOW::HEIGHT};
   Vector2 origin = {0, 0};
   
-  float sinY;
-
   std::cout << "Everything seems to be good to go!." << "\n";
 
   while (WindowShouldClose() == false) {
-    sinY = sinf(GetTime()) * 10;
 
     BeginTextureMode(canvas);
-
     ClearBackground(COLOR::LIGHT);
-    DrawPixel(40, 20 + sinY, COLOR::DARK);
-
     EndTextureMode();
 
     BeginDrawing();
