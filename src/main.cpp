@@ -11,6 +11,11 @@ int main() {
   Rectangle source = (Rectangle){0, 0, CANVAS::WIDTH, -CANVAS::HEIGHT};
   Rectangle dest = (Rectangle){0, 0, WINDOW::WIDTH, WINDOW::HEIGHT};
   Vector2 origin = {0, 0};
+
+  Rectangle level[2] = {
+    (Rectangle){0, 40, 42, 8},
+    (Rectangle){54, 40, 30, 8}
+  };
   
   std::cout << "Everything seems to be good to go!." << "\n";
 
@@ -18,6 +23,11 @@ int main() {
 
     BeginTextureMode(canvas);
     ClearBackground(COLOR::LIGHT);
+
+    for (Rectangle ground : level) {
+      DrawRectangleRec(ground, COLOR::DARK);
+    }
+
     EndTextureMode();
 
     BeginDrawing();

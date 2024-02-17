@@ -1,8 +1,11 @@
-debug: main.o
-	clang++ --debug -O0 -Wall main.o -lraylib -lopengl32 -lgdi32 -lwinmm -o out
+debug: main.o player.o
+	clang++ --debug -O0 main.o player.o -lraylib -lopengl32 -lgdi32 -lwinmm -o out
 
 main.o: src/main.cpp
 	g++ -c src/main.cpp
+
+player.o: scr/player.cpp
+	g++ -c src/player.cpp
 
 clean:
 	del *.o
