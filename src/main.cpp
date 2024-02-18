@@ -1,8 +1,10 @@
 #include <iostream>
+#include <array>
 #include <raylib.h>
 #include "constants.h"
 #include "player.h"
 
+using std::array;
 
 int main() {
   InitWindow(WINDOW::WIDTH, WINDOW::HEIGHT, "Nokia 3310 Jam 6");
@@ -13,12 +15,12 @@ int main() {
   Rectangle dest = (Rectangle){0, 0, WINDOW::WIDTH, WINDOW::HEIGHT};
   Vector2 origin = {0, 0};
 
-  Rectangle level[2] = {
+  array<Rectangle, 2> level_geometry = {
     (Rectangle){0, 40, 42, 8},
     (Rectangle){54, 40, 30, 8}
   };
 
-  auto player = Player(4, 9);
+  auto player = Player(4, 5, level_geometry);
   
   std::cout << "Everything seems to be good to go!." << "\n";
 
@@ -31,7 +33,7 @@ int main() {
     BeginTextureMode(canvas);
     ClearBackground(COLOR::LIGHT);
 
-    for (Rectangle ground : level) {
+    for (Rectangle ground : level_geometry) {
       DrawRectangleRec(ground, COLOR::DARK);
     }
 
