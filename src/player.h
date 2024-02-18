@@ -29,9 +29,12 @@ class Player {
   bool on_ground = false;
 
   bool jumping = false;
+  bool holding_jumpKey = false;
   float jump_speed;
-  float jump_time;
-  float last_jumped;
+
+  float max_jump_time;
+  float min_jump_time;
+  float last_jumped = 0.0;
 
 public:
   Player(int tileX, int tileY, array<Rectangle, 2> level_geometry);
@@ -40,6 +43,9 @@ public:
 
   void movement();
   void acceleration();
+
+  void initiateJump();
+  void jumpSequence();
 
   void applyGravity();
   void gravityAcceleration();
