@@ -23,6 +23,10 @@ int main() {
   std::cout << "Everything seems to be good to go!." << "\n";
 
   while (WindowShouldClose() == false) {
+    player.keyPressed();
+    player.keyReleased();
+
+    player.update();
 
     BeginTextureMode(canvas);
     ClearBackground(COLOR::LIGHT);
