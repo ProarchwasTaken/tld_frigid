@@ -58,4 +58,5 @@ end of the level more tricky. There would be campfiles that act as
 checkpoints, and it raises your temperature when standing near it.
 
 The story could be that you're stuck in a restaurant's freezer and you
-must escape before freezing to death.
+must escape before freezing to death. There could also be hazards the 
+decrease the player's temperature at a faster rate.
