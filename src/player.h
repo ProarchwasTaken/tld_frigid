@@ -4,12 +4,15 @@
 
 class Player {
   Rectangle rect;
+  Vector2 spawn_point;
 
-  float velocity_x = false;
-  float velocity_y = false;
+  float velocity_x = 0;
+  float velocity_y = 0;
 
   bool on_ground = false;
 
 public:
-  Vector2 origin;
+  Player(int tile_x, int tile_y);
+  void update();
+  void draw();
 };

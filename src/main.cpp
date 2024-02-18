@@ -1,6 +1,7 @@
 #include <iostream>
 #include <raylib.h>
 #include "constants.h"
+#include "player.h"
 
 
 int main() {
@@ -16,6 +17,8 @@ int main() {
     (Rectangle){0, 40, 42, 8},
     (Rectangle){54, 40, 30, 8}
   };
+
+  auto player = Player(4, 9);
   
   std::cout << "Everything seems to be good to go!." << "\n";
 
@@ -27,6 +30,8 @@ int main() {
     for (Rectangle ground : level) {
       DrawRectangleRec(ground, COLOR::DARK);
     }
+
+    player.draw();
 
     EndTextureMode();
 

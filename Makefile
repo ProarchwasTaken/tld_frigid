@@ -4,8 +4,9 @@ debug: main.o player.o
 main.o: src/main.cpp
 	g++ -c src/main.cpp
 
-player.o: scr/player.cpp
+player.o: src/player.cpp
 	g++ -c src/player.cpp
 
 clean:
 	del *.o
+	del out.exe
