@@ -1,9 +1,9 @@
 #pragma once
 
+#include <list>
 #include "raylib.h"
-#include <array>
 
-using std::array;
+using std::list;
 
 /* The player character is a special game object is does stuff based on 
  * the input of the user. It is capable of moving but with a lot of 
@@ -11,7 +11,7 @@ using std::array;
 class Player {
   Rectangle rect;
   Vector2 spawn_point;
-  array<Rectangle, 2> *level_geometry;
+  list<Rectangle> *level_geometry;
 
   float velocity_x = 0;
   float velocity_y = 0;
@@ -37,9 +37,11 @@ class Player {
   float last_jumped = 0.0;
 
 public:
-  Player(int tileX, int tileY, array<Rectangle, 2> level_geometry);
+  Player(int tileX, int tileY);
   void update();
   void draw();
+
+  void assignLevelGeometry(list<Rectangle> &level_geometry);
 
   void movement();
   void acceleration();

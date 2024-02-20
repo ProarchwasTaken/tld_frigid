@@ -1,16 +1,12 @@
-#include <array>
 #include <raylib.h>
 #include <raymath.h>
 #include "constants.h"
 #include "player.h"
 
-using std::array;
-
 // Player class 
-Player::Player(int tileX, int tileY, array<Rectangle, 2> level_geometry) {
+Player::Player(int tileX, int tileY) {
   tileY -= 1;
   rect = (Rectangle){tileX * TILE::SIZE, tileY * TILE::SIZE, 4, 8};
-  this->level_geometry = &level_geometry;
 
   spawn_point = (Vector2){rect.x, rect.y};
 
@@ -46,6 +42,12 @@ void Player::update() {
     rect.y = spawn_point.y;
   }
 }
+
+
+void Player::assignLevelGeometry(list<Rectangle> &level_geometry) {
+  this->level_geometry = &level_geometry;
+}
+
 
 /* Responsible for moving the player. The method would be returned
  * early if the player isn't moving at all.*/
