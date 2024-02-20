@@ -44,6 +44,9 @@ void Player::update() {
 }
 
 
+/* For assigning the reference to the level_geometry of the current level
+ * which will be used to check for collisions. Usually called after the
+ * player has been initiated, and the level have been fully loaded.*/
 void Player::assignLevelGeometry(list<Rectangle> &level_geometry) {
   this->level_geometry = &level_geometry;
 }

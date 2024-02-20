@@ -9,6 +9,9 @@
 using std::unique_ptr, std::list, std::make_unique;
 
 
+/* The Game struct handles a multitude of things. Which vary from checking
+ * for player input, updating and drawing the game's elements to loading
+ * the game's levels, and cleanup.*/
 struct Game {
   int current_level = 0;
 
@@ -89,6 +92,9 @@ void Game::draw() {
 }
 
 
+/* The game loads a level in accordance to the value of the current_level 
+ * integer. Usually called when the game starts, when it's time to load
+ * the next level after the player completes the current one.*/
 void Game::loadLevel() {
   cleanup();
 
@@ -102,6 +108,8 @@ void Game::loadLevel() {
 }
 
 
+/* Checks a certain value in the two dimensional level array and does
+ * something depending on that value.*/
 void Game::checkTile(int tileX, int tileY) {
   switch (LEVELS[current_level][tileY][tileX]) {
     default:
@@ -127,6 +135,9 @@ void Game::checkTile(int tileX, int tileY) {
 }
 
 
+/* For freeing up the game's memory to prevent memory leaks. Usually
+ * called when the game loads a new level or when the program is about
+ * to close.*/
 void Game::cleanup() {
   if (player != NULL) {
     player.reset();
