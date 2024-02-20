@@ -23,6 +23,6 @@ namespace COLOR {
 
 namespace TILE {
   const float SIZE = 4;
-  const int ROWS = 21;
-  const int COLUMNS = 12;
+  const int ROWS = 12;
+  const int COLUMNS = 21;
 }
