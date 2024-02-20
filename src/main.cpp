@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <iostream>
 #include <list>
 #include <memory>
@@ -18,7 +17,7 @@ struct Game {
 
   void checkInput();
   void update();
-  void refresh();
+  void draw();
 
   void loadLevel(); 
   void checkTile(int tileX, int tileY);
@@ -43,24 +42,13 @@ int main() {
   std::cout << "Everything seems to be good to go!." << "\n";
 
   while (WindowShouldClose() == false) {
-    if (IsKeyPressed(KEY_R)) {
-      game.loadLevel();
-    }
-
-    player->keyPressed();
-    player->keyReleased();
-
-    player->update();
+    game.checkInput();
+    game.update();
 
     BeginTextureMode(canvas);
     {
       ClearBackground(COLOR::LIGHT);
-
-      for (Rectangle ground : game.level_geometry) {
-        DrawRectangleRec(ground, COLOR::DARK);
-      }
-
-      player->draw();
+      game.draw();
     }
     EndTextureMode();
 
@@ -78,6 +66,29 @@ int main() {
 }
 
 
+void Game::checkInput() {
+  if (IsKeyPressed(KEY_R)) {
+    loadLevel();
+  }
+  player->keyPressed();
+  player->keyReleased();
+}
+
+
+void Game::update() {
+  player->update();
+}
+
+
+void Game::draw() {
+  for (Rectangle ground : level_geometry) {
+    DrawRectangleRec(ground, COLOR::DARK);
+  }
+
+  player->draw();
+}
+
+
 void Game::loadLevel() {
   cleanup();
 
@@ -89,6 +100,7 @@ void Game::loadLevel() {
 
   player->assignLevelGeometry(level_geometry);
 }
+
 
 void Game::checkTile(int tileX, int tileY) {
   switch (LEVELS[current_level][tileY][tileX]) {
@@ -113,6 +125,7 @@ void Game::checkTile(int tileX, int tileY) {
   }
 
 }
+
 
 void Game::cleanup() {
   if (player != NULL) {
