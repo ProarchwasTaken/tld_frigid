@@ -43,6 +43,7 @@ int main() {
   game.loadLevel();
   
   std::cout << "Everything seems to be good to go!." << "\n";
+  std::cout << "Game directory: "<< GetApplicationDirectory() << "\n";
 
   while (WindowShouldClose() == false) {
     game.checkInput();
