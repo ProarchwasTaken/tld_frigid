@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <iostream>
 #include <list>
 #include <memory>
@@ -74,6 +75,7 @@ int main() {
 
 void Game::checkInput() {
   if (IsKeyPressed(KEY_R)) {
+    std::cout << "Reloading current level.\n";
     loadLevel();
   }
   player->keyPressed();
@@ -100,16 +102,27 @@ void Game::draw() {
  * integer. Usually called when the game starts, when it's time to load
  * the next level after the player completes the current one.*/
 void Game::loadLevel() {
+  std::cout << "================================\n";
+  std::cout << "Loading level: " << current_level << "\n";
   cleanup();
 
+  std::cout << "Proceeding to search through level array to create " <<
+    "game's elements.\n";
   for (int y = 0; y < TILE::ROWS; y++) {
     for (int x = 0; x < TILE::COLUMNS; x++) {
       Game::checkTile(x, y);
     }
   }
+  std::cout << "Number of solid tiles: " << level_geometry.size() << "\n";
 
+  std::cout << "Assigning address of the level's geometry to player.\n"; 
   player->assignLevelGeometry(level_geometry);
+
+  std::cout << "Assigning Player address to GoalDoor\n";
   goal_door->assignPlayer(*player);
+
+  std::cout << "Level has successfully loaded!\n";
+  std::cout << "================================\n";
 }
 
 
@@ -130,10 +143,14 @@ void Game::checkTile(int tileX, int tileY) {
       break;
     }
     case PLAYER_SPAWNPOINT: {
+      std::cout << "Initializing Player object at: (" << tileX << ", " <<
+        tileY << ")\n";
       player = make_unique<Player>(tileX, tileY);
       break;
     }
     case GOAL_DOOR: {
+      std::cout << "Initializing GoalDoor object at: (" << tileX << ", " 
+        << tileY << ")\n";
       goal_door = make_unique<GoalDoor>(tileX, tileY);
       break;
     }
@@ -146,8 +163,14 @@ void Game::checkTile(int tileX, int tileY) {
  * called when the game loads a new level or when the program is about
  * to close.*/
 void Game::cleanup() {
+  std::cout << "Freeing up used memory...\n";
   if (player != NULL) {
     player.reset();
+    std::cout << "Freed up memory used by the Player object.\n";
+  }
+  if (goal_door != NULL) {
+    goal_door.reset();
+    std::cout << "Freed up memory used by the GoalDoor object.\n";
   }
 
   level_geometry.clear();
