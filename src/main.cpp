@@ -5,6 +5,7 @@
 #include "constants.h"
 #include "levels.h"
 #include "player.h"
+#include "goal_door.h"
 
 using std::unique_ptr, std::list, std::make_unique;
 
@@ -16,6 +17,7 @@ struct Game {
   int current_level = 0;
 
   unique_ptr<Player> player;
+  unique_ptr<GoalDoor> goal_door;
   list<Rectangle> level_geometry;
 
   void checkInput();
@@ -89,11 +91,12 @@ void Game::draw() {
     DrawRectangleRec(ground, COLOR::DARK);
   }
 
+  goal_door->draw();
   player->draw();
 }
 
 
-/* The game loads a level in accordance to the value of the current_level 
+/* The game loads a level in accordance to the value of the current_level
  * integer. Usually called when the game starts, when it's time to load
  * the next level after the player completes the current one.*/
 void Game::loadLevel() {
@@ -106,6 +109,7 @@ void Game::loadLevel() {
   }
 
   player->assignLevelGeometry(level_geometry);
+  goal_door->assignPlayer(*player);
 }
 
 
@@ -115,7 +119,6 @@ void Game::checkTile(int tileX, int tileY) {
   switch (LEVELS[current_level][tileY][tileX]) {
     default:
       break;
-
     case SOLID_TILE: {
       float x = tileX * TILE::SIZE;
       float y = tileY * TILE::SIZE;
@@ -126,9 +129,12 @@ void Game::checkTile(int tileX, int tileY) {
       
       break;
     }
-
     case PLAYER_SPAWNPOINT: {
       player = make_unique<Player>(tileX, tileY);
+      break;
+    }
+    case GOAL_DOOR: {
+      goal_door = make_unique<GoalDoor>(tileX, tileY);
       break;
     }
   }

@@ -1,4 +1,5 @@
 /main.o
 /player.o
+/goal_door.o
 /levels.o
 /out.exe
