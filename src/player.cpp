@@ -15,11 +15,11 @@ Player::Player(int tileX, int tileY) {
 
   jump_speed = 0.5;
 
-  min_jump_time = 0.1;
+  min_jump_time = 0.01;
   max_jump_time = 0.25;
 
   x_accel_seconds = 1;
-  x_accel_rate = 0.01;
+  x_accel_rate = 0.015;
 
   y_accel_seconds = 1;
   y_accel_rate = 0.05;
