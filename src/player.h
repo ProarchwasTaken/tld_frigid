@@ -1,7 +1,7 @@
 #pragma once
 
 #include <list>
-#include "raylib.h"
+#include <raylib.h>
 
 using std::list;
 
