@@ -16,6 +16,8 @@ public:
   Vector2 position;
   Rectangle rect;
 
+  void assignLevelGeometry(list<Rectangle> &level_geometry);
+
   void update();
   void draw();
 
@@ -53,7 +55,6 @@ private:
   float min_jump_time;
   float last_jumped = 0.0;
 
-  void assignLevelGeometry(list<Rectangle> &level_geometry);
 
   void movement();
   void acceleration();
