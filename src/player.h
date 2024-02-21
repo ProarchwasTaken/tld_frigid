@@ -27,6 +27,8 @@ class Player {
   float max_falling_speed;
 
   bool on_ground = false;
+  float coyote_time;
+  float last_grounded;
 
   bool jumping = false;
   bool holding_jumpKey = false;
@@ -48,6 +50,7 @@ public:
 
   void initiateJump();
   void jumpSequence();
+  bool canJump();
 
   void applyGravity();
   void gravityAcceleration();

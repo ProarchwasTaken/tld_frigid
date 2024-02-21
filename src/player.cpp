@@ -18,6 +18,8 @@ Player::Player(int tileX, int tileY) {
   min_jump_time = 0.01;
   max_jump_time = 0.25;
 
+  coyote_time = 0.15;
+
   x_accel_seconds = 1;
   x_accel_rate = 0.015;
 
@@ -88,7 +90,7 @@ void Player::acceleration() {
 /* Moves the player down automatically each frame to simulate gravity.
  * Responsible for canceling the player's jump if they were to hit a
  * ceiling. Also Responsible for deciding if the player is on the ground
- * or not.*/
+ * and save a timestamp of the last time the player was grounded..*/
 void Player::applyGravity() {
   gravityAcceleration();
 
@@ -114,7 +116,11 @@ void Player::applyGravity() {
     }
   }
 
-  on_ground = false;
+  if (on_ground == true) {
+    on_ground = false;
+    last_grounded = GetTime();
+  }
+
 }
 
 /* This is sorta the same thing as the Acceleration method, but for the Y
@@ -141,6 +147,21 @@ void Player::initiateJump() {
   velocity_y = -jump_speed;
 
   last_jumped = GetTime();
+}
+
+/* Pretty much decides if the player should be able to jump based on a
+ * number of conditions. Returns true if only one of these conditions
+ * are met. Called every time the player tries to jump.*/
+bool Player::canJump() {
+  float time_elapsed = GetTime() - last_grounded;
+  bool coyote_time_over = time_elapsed >= coyote_time;
+
+  if (on_ground || coyote_time_over == false) {
+    return true;
+  }
+  else {
+    return false;
+  }
 }
 
 /* Called once every frame if the player is jumping. This method is for
@@ -173,7 +194,7 @@ void Player::keyPressed() {
   }
 
   if (IsKeyPressed(KEY_Z)) {
-    if (on_ground) {
+    if (canJump()) {
       initiateJump();
     }
 
