@@ -6,7 +6,7 @@
 // Player class 
 Player::Player(int tileX, int tileY) {
   tileY -= 1;
-  rect = (Rectangle){tileX * TILE::SIZE, tileY * TILE::SIZE, 4, 8};
+  rect = (Rectangle){tileX * TILE::SIZE, tileY * TILE::SIZE + 2, 4, 6};
 
   spawn_point = (Vector2){rect.x, rect.y};
 
