@@ -3,7 +3,7 @@
 #include "constants.h"
 #include "player.h"
 
-// Player class 
+// Player Constructor. Called on initialization. 
 Player::Player(int tileX, int tileY) {
   tileY -= 1;
   rect = (Rectangle){tileX * TILE::SIZE, tileY * TILE::SIZE + 1, 4, 7};
@@ -29,6 +29,7 @@ Player::Player(int tileX, int tileY) {
   y_accel_rate = 0.05;
 }
 
+// Player Destructor.
 Player::~Player() {
   UnloadTexture(texture);
 }

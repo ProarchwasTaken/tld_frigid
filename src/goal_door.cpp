@@ -4,7 +4,7 @@
 #include "goal_door.h"
 
 
-// GoalDoor class
+// GoalDoor Constructor. Called on initialization.
 GoalDoor::GoalDoor(int tileX, int tileY) {
   texture = LoadTexture("sprites/goal_door.png");
   tileY--;
@@ -12,6 +12,7 @@ GoalDoor::GoalDoor(int tileX, int tileY) {
   rect = (Rectangle){position.x, position.y, 6, 9};
 }
 
+// GoalDoor Destructor
 GoalDoor::~GoalDoor() {
   UnloadTexture(texture);
 }
