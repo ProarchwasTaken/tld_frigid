@@ -6,9 +6,11 @@
 // Player class 
 Player::Player(int tileX, int tileY) {
   tileY -= 1;
-  rect = (Rectangle){tileX * TILE::SIZE, tileY * TILE::SIZE + 2, 4, 6};
+  rect = (Rectangle){tileX * TILE::SIZE, tileY * TILE::SIZE + 1, 4, 7};
+  texture = LoadTexture("sprites/player.png");
 
   spawn_point = (Vector2){rect.x, rect.y};
+  position = (Vector2){rect.x, rect.y};
 
   max_speed = 0.5;
   max_falling_speed = 0.5;
@@ -27,6 +29,10 @@ Player::Player(int tileX, int tileY) {
   y_accel_rate = 0.05;
 }
 
+Player::~Player() {
+  UnloadTexture(texture);
+}
+
 /* Is called once every frame. Does a multitude of things like moving the
  * player, applying gravity, and respawning the player at their
  * designated spawn point if they were to fall out of the level.*/
@@ -38,6 +44,7 @@ void Player::update() {
   }
 
   applyGravity();
+  position = {rect.x, rect.y};
 
   if (rect.y >= CANVAS::HEIGHT) {
     rect.x = spawn_point.x;
@@ -218,5 +225,5 @@ void Player::keyReleased() {
 }
 
 void Player::draw() {
-  DrawRectangleRec(rect, COLOR::DARK);
+  DrawTextureV(texture, position, WHITE);
 }

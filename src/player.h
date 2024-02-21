@@ -10,6 +10,8 @@ using std::list;
  * slipperiness, and it's also able to jump.*/
 class Player {
   Rectangle rect;
+  Texture2D texture;
+
   Vector2 spawn_point;
   list<Rectangle> *level_geometry;
 
@@ -40,6 +42,10 @@ class Player {
 
 public:
   Player(int tileX, int tileY);
+  ~Player();
+
+  Vector2 position;
+
   void update();
   void draw();
 
