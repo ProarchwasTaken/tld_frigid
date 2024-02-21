@@ -9,7 +9,20 @@ using std::list;
  * the input of the user. It is capable of moving but with a lot of 
  * slipperiness, and it's also able to jump.*/
 class Player {
+public:
+  Player(int tileX, int tileY);
+  ~Player();
+
+  Vector2 position;
   Rectangle rect;
+
+  void update();
+  void draw();
+
+  void keyPressed();
+  void keyReleased();
+
+private:
   Texture2D texture;
 
   Vector2 spawn_point;
@@ -40,15 +53,6 @@ class Player {
   float min_jump_time;
   float last_jumped = 0.0;
 
-public:
-  Player(int tileX, int tileY);
-  ~Player();
-
-  Vector2 position;
-
-  void update();
-  void draw();
-
   void assignLevelGeometry(list<Rectangle> &level_geometry);
 
   void movement();
@@ -60,7 +64,4 @@ public:
 
   void applyGravity();
   void gravityAcceleration();
-
-  void keyPressed();
-  void keyReleased();
 };
