@@ -63,6 +63,8 @@ private:
   void jumpSequence();
   bool canJump();
 
+  bool movingWhileNoKeysDown();
+
   void applyGravity();
   void gravityAcceleration();
 };

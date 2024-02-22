@@ -47,12 +47,15 @@ void Player::update() {
   applyGravity();
   position = {rect.x, rect.y};
 
+  if (movingWhileNoKeysDown()) {
+    target_velocityX = 0;
+  }
+  
   if (rect.y >= CANVAS::HEIGHT) {
     rect.x = spawn_point.x;
     rect.y = spawn_point.y;
   }
 }
-
 
 /* For assigning the reference to the level_geometry of the current level
  * which will be used to check for collisions. Usually called after the
@@ -61,6 +64,19 @@ void Player::assignLevelGeometry(list<Rectangle> &level_geometry) {
   this->level_geometry = &level_geometry;
 }
 
+/* Returns true if the player somehow not moving even when no keys are
+ * pressed. In such a scenario, the player's target_velocity will be set
+ * to 0.*/
+bool Player::movingWhileNoKeysDown() {
+  bool noKeysPressed = IsKeyUp(KEY_RIGHT) && IsKeyUp(KEY_LEFT);
+
+  if (target_velocityX != 0 && noKeysPressed) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
 
 /* Responsible for moving the player. The method would be returned
  * early if the player isn't moving at all.*/
