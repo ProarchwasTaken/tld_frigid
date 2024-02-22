@@ -1,4 +1,3 @@
-#include <cstddef>
 #include <iostream>
 #include <list>
 #include <memory>
@@ -25,6 +24,7 @@ struct Game {
   void update();
   void draw();
 
+  void nextLevel();
   void loadLevel(); 
   void checkTile(int tileX, int tileY);
   void cleanup();
@@ -85,6 +85,11 @@ void Game::checkInput() {
 
 void Game::update() {
   player->update();
+
+  if (CheckCollisionRecs(player->rect, goal_door->rect)) {
+    std::cout << "Player has reached the goal door.\n";
+    nextLevel();
+  }
 }
 
 
@@ -95,6 +100,12 @@ void Game::draw() {
 
   goal_door->draw();
   player->draw();
+}
+
+
+void Game::nextLevel() {
+  current_level++;
+  loadLevel();
 }
 
 
@@ -164,11 +175,11 @@ void Game::checkTile(int tileX, int tileY) {
  * to close.*/
 void Game::cleanup() {
   std::cout << "Freeing up used memory...\n";
-  if (player != NULL) {
+  if (player != nullptr) {
     player.reset();
     std::cout << "Freed up memory used by the Player object.\n";
   }
-  if (goal_door != NULL) {
+  if (goal_door != nullptr) {
     goal_door.reset();
     std::cout << "Freed up memory used by the GoalDoor object.\n";
   }

@@ -9,6 +9,8 @@ public:
   GoalDoor(int tileX, int tileY);
   ~GoalDoor(); 
 
+  Rectangle rect;
+
   void assignPlayer(Player &player);
 
   void update();
@@ -17,7 +19,6 @@ public:
 private:
   Texture2D texture;
   Vector2 position;
-  Rectangle rect;
 
   Player *player;
 };
