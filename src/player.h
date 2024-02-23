@@ -55,6 +55,9 @@ private:
   float min_jump_time;
   float last_jumped = 0.0;
 
+  int starting_temperature;
+  int current_temperature;
+
 
   void movement();
   void acceleration();

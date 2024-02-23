@@ -27,6 +27,9 @@ Player::Player(int tileX, int tileY) {
 
   y_accel_seconds = 1;
   y_accel_rate = 0.05;
+
+  starting_temperature = 10;
+  current_temperature = starting_temperature;
 }
 
 // Player Destructor.
@@ -242,5 +245,7 @@ void Player::keyReleased() {
 }
 
 void Player::draw() {
+  DrawRectangle(0, 0, 12, 9, COLOR::DARK);
+  DrawText(TextFormat("%02i", current_temperature), 0, 0, 10, COLOR::LIGHT);
   DrawTextureV(texture, position, WHITE);
 }
