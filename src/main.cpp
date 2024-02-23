@@ -14,6 +14,7 @@ using std::unique_ptr, std::list, std::make_unique;
  * for player input, updating and drawing the game's elements to loading
  * the game's levels, and cleanup.*/
 struct Game {
+  int state = TITLE;
   int current_level = 0;
 
   unique_ptr<Player> player;
@@ -29,6 +30,10 @@ struct Game {
   void checkTile(int tileX, int tileY);
   void cleanup();
 };
+
+
+void drawTitleScreen() {
+}
 
 
 int main() {
@@ -49,13 +54,43 @@ int main() {
   std::cout << "Game directory: "<< GetApplicationDirectory() << "\n";
 
   while (WindowShouldClose() == false) {
-    game.checkInput();
-    game.update();
+    switch (game.state) {
+      default:
+        break;
+
+      case TITLE: {
+        if (IsKeyPressed(KEY_Z)) {
+          game.state = GAME;
+          game.loadLevel();
+        }
+        break;
+      }
+
+      case GAME: {
+        game.checkInput();
+        game.update();
+        break;
+      }
+    }
 
     BeginTextureMode(canvas);
     {
       ClearBackground(COLOR::LIGHT);
-      game.draw();
+
+      switch (game.state) {
+        default:
+          break;
+          
+        case TITLE: {
+          drawTitleScreen();
+          break;
+        }
+        
+        case GAME: {
+          game.draw();
+          break;
+        }
+      }
     }
     EndTextureMode();
 
@@ -105,6 +140,16 @@ void Game::draw() {
 
 void Game::nextLevel() {
   current_level++;
+
+  if (current_level == LEVEL_COUNT) {
+    std::cout << "No availiable levels left. Returning to title screen\n";
+    state = TITLE;
+    current_level = 0;
+
+    cleanup();
+    return;
+  }
+
   loadLevel();
 }
 

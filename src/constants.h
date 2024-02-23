@@ -1,6 +1,10 @@
 #pragma once
 #include <raylib.h>
 
+#define TITLE 0
+#define GAME 1
+
+
 namespace WINDOW {
   const int WIDTH = 672;
   const int HEIGHT = 384;
