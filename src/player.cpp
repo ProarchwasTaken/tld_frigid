@@ -55,8 +55,7 @@ void Player::update() {
   }
   
   if (rect.y >= CANVAS::HEIGHT) {
-    rect.x = spawn_point.x;
-    rect.y = spawn_point.y;
+    resetParameters();
   }
 }
 
@@ -79,6 +78,22 @@ bool Player::movingWhileNoKeysDown() {
   else {
     return false;
   }
+}
+
+/* For performing a "soft reset" of the player by reseting most of their
+ * parameters and sending them back to their spawn point. Usually called
+ * when the player falls down a bottomless pit or their temperature hits
+ * 0.*/
+void Player::resetParameters() {
+  rect.x = spawn_point.x;
+  rect.y = spawn_point.y;
+  position = spawn_point;
+
+  velocity_x = 0;
+  velocity_y = 0;
+
+  current_temperature = starting_temperature;
+  jumping = false;
 }
 
 /* Responsible for moving the player. The method would be returned

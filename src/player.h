@@ -58,6 +58,7 @@ private:
   int starting_temperature;
   int current_temperature;
 
+  void resetParameters();
 
   void movement();
   void acceleration();
