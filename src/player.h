@@ -58,7 +58,10 @@ private:
   int starting_temperature;
   int current_temperature;
 
-  void resetParameters();
+  float temp_tick_seconds;
+  float tick_timestamp;
+
+  void softReset();
 
   void movement();
   void acceleration();
@@ -71,4 +74,6 @@ private:
 
   void applyGravity();
   void gravityAcceleration();
+
+  void temperatureHandling();
 };

@@ -1,3 +1,4 @@
+#include <iostream>
 #include <raylib.h>
 #include <raymath.h>
 #include "constants.h"
@@ -28,8 +29,11 @@ Player::Player(int tileX, int tileY) {
   y_accel_seconds = 1;
   y_accel_rate = 0.05;
 
-  starting_temperature = 10;
-  current_temperature = starting_temperature;
+  starting_temperature = 15;
+  current_temperature = starting_temperature; 
+
+  temp_tick_seconds = 1;
+  tick_timestamp = GetTime();
 }
 
 // Player Destructor.
@@ -55,7 +59,11 @@ void Player::update() {
   }
   
   if (rect.y >= CANVAS::HEIGHT) {
-    resetParameters();
+    std::cout << "The player has fell out of the level.\n";
+    softReset();
+  }
+  else {
+    temperatureHandling();
   }
 }
 
@@ -84,7 +92,8 @@ bool Player::movingWhileNoKeysDown() {
  * parameters and sending them back to their spawn point. Usually called
  * when the player falls down a bottomless pit or their temperature hits
  * 0.*/
-void Player::resetParameters() {
+void Player::softReset() {
+  std::cout << "Now Performing a soft reset.\n";
   rect.x = spawn_point.x;
   rect.y = spawn_point.y;
   position = spawn_point;
@@ -93,6 +102,7 @@ void Player::resetParameters() {
   velocity_y = 0;
 
   current_temperature = starting_temperature;
+  tick_timestamp = GetTime();
   jumping = false;
 }
 
@@ -222,6 +232,26 @@ void Player::jumpSequence() {
   else if (passed_maximum_time) {
     jumping = false;
     return;
+  }
+}
+
+/* Call once every frame. Handles almost everything that has something
+ * to do with temperature like performing a soft reset on the player
+ * of their temperature hits 0.*/
+void Player::temperatureHandling() {
+  float time_elapsed = GetTime() - tick_timestamp;
+  bool enough_time_passed = time_elapsed >= temp_tick_seconds;
+
+  if (enough_time_passed) {
+    --current_temperature;
+
+    if (current_temperature == 0){
+      std::cout << "The player's temperature has hit 0.\n";
+      softReset();
+    }
+    else {
+      tick_timestamp = GetTime();
+    }
   }
 }
 
