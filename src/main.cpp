@@ -33,6 +33,7 @@ struct Game {
 
 
 void drawTitleScreen() {
+  DrawText("Press [Z]", 18, 36, 10, COLOR::DARK);
 }
 
 
