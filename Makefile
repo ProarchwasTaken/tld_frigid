@@ -1,5 +1,8 @@
-debug: main.o levels.o player.o goal_door.o
-	clang++ --debug -O0 main.o levels.o player.o goal_door.o -lraylib -lopengl32 -lgdi32 -lwinmm -o out
+dependencies = main.o levels.o player.o goal_door.o 
+libraries = -lraylib -lopengl32 -lgdi32 -lwinmm
+
+debug: $(dependencies)
+	clang++ --debug -O0 $(dependencies) $(libraries) -o out
 
 main.o: src/main.cpp
 	g++ -c src/main.cpp
