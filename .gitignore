@@ -2,4 +2,6 @@
 /player.o
 /goal_door.o
 /levels.o
+/solid_tile.o
+/ice_spike.o
 /out.exe

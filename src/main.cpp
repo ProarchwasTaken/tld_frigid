@@ -6,6 +6,8 @@
 #include "levels.h"
 #include "player.h"
 #include "goal_door.h"
+#include "solid_tile.h"
+#include "ice_spike.h"
 
 using std::unique_ptr, std::list, std::make_unique;
 
@@ -19,7 +21,7 @@ struct Game {
 
   unique_ptr<Player> player;
   unique_ptr<GoalDoor> goal_door;
-  list<Tile> level_geometry;
+  list<Tile*> level_geometry;
 
   void checkInput();
   void update();
@@ -130,8 +132,8 @@ void Game::update() {
 
 
 void Game::draw() {
-  for (Tile tile : level_geometry) {
-    DrawRectangleRec(tile.rect, COLOR::DARK);
+  for (Tile *tile : level_geometry) {
+    tile->draw();
   }
 
   goal_door->draw();
@@ -190,8 +192,11 @@ void Game::checkTile(int tileX, int tileY) {
     default:
       break;
     case SOLID_TILE: {
-      level_geometry.push_front(Tile(tileX, tileY));
-      
+      level_geometry.push_front(new Tile(tileX, tileY));
+      break;
+    }
+    case ICE_SPIKE: {
+      level_geometry.push_front(new IceSpike(tileX, tileY));
       break;
     }
     case PLAYER_SPAWNPOINT: {
@@ -225,6 +230,12 @@ void Game::cleanup() {
     std::cout << "Freed up memory used by the GoalDoor object.\n";
   }
 
-  level_geometry.clear();
+  if (level_geometry.size() != 0) {
+    std::cout << "Clearing every tile from memory as well.\n";
+    for (Tile *tile : level_geometry) {
+      delete tile;
+    }
+    level_geometry.clear();
+  }
 }
 

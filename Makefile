@@ -1,4 +1,4 @@
-dependencies = main.o levels.o player.o goal_door.o 
+dependencies = main.o levels.o player.o goal_door.o solid_tile.o ice_spike.o
 libraries = -lraylib -lopengl32 -lgdi32 -lwinmm
 
 debug: $(dependencies)
@@ -15,6 +15,12 @@ player.o: src/player.cpp
 
 goal_door.o: src/goal_door.cpp
 	g++ -c src/goal_door.cpp
+
+solid_tile.o: src/solid_tile.cpp
+	g++ -c src/solid_tile.cpp
+
+ice_spike.o: src/ice_spike.cpp
+	g++ -c src/ice_spike.cpp
 
 clean:
 	del *.o
