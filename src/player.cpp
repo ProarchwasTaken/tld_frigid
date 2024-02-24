@@ -70,7 +70,7 @@ void Player::update() {
 /* For assigning the reference to the level_geometry of the current level
  * which will be used to check for collisions. Usually called after the
  * player has been initiated, and the level have been fully loaded.*/
-void Player::assignLevelGeometry(list<Rectangle> &level_geometry) {
+void Player::assignLevelGeometry(list<Tile> &level_geometry) {
   this->level_geometry = &level_geometry;
 }
 
@@ -118,8 +118,8 @@ void Player::movement() {
 
   rect.x += velocity_x * (GetFrameTime() * FRAMERATE::TARGET);
 
-  for (Rectangle ground : *level_geometry) {
-    if (CheckCollisionRecs(rect, ground) == true) {
+  for (Tile tile : *level_geometry) {
+    if (CheckCollisionRecs(rect, tile.rect) == true) {
       rect.x -= velocity_x * (GetFrameTime() * FRAMERATE::TARGET);
       break;
     }
@@ -152,8 +152,8 @@ void Player::applyGravity() {
 
   rect.y += velocity_y * (GetFrameTime() * FRAMERATE::TARGET);
 
-  for (Rectangle ground : *level_geometry) {
-    if (CheckCollisionRecs(rect, ground) == true) {
+  for (Tile tile : *level_geometry) {
+    if (CheckCollisionRecs(rect, tile.rect) == true) {
       rect.y -= velocity_y * (GetFrameTime() * FRAMERATE::TARGET);
       velocity_y = 0;
 

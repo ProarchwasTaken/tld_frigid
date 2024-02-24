@@ -1,5 +1,14 @@
+#include <raylib.h>
 #include "constants.h"
 #include "levels.h"
+
+
+Tile::Tile(int tileX, int tileY) {
+  rect = (Rectangle){
+    tileX * TILE::SIZE, tileY * TILE::SIZE, TILE::SIZE, TILE::SIZE
+  };
+}
+
 
  int LEVELS[LEVEL_COUNT][TILE::ROWS][TILE::COLUMNS] = {
   {

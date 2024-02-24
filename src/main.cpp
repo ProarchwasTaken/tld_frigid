@@ -19,7 +19,7 @@ struct Game {
 
   unique_ptr<Player> player;
   unique_ptr<GoalDoor> goal_door;
-  list<Rectangle> level_geometry;
+  list<Tile> level_geometry;
 
   void checkInput();
   void update();
@@ -130,8 +130,8 @@ void Game::update() {
 
 
 void Game::draw() {
-  for (Rectangle ground : level_geometry) {
-    DrawRectangleRec(ground, COLOR::DARK);
+  for (Tile tile : level_geometry) {
+    DrawRectangleRec(tile.rect, COLOR::DARK);
   }
 
   goal_door->draw();
@@ -190,12 +190,7 @@ void Game::checkTile(int tileX, int tileY) {
     default:
       break;
     case SOLID_TILE: {
-      float x = tileX * TILE::SIZE;
-      float y = tileY * TILE::SIZE;
-
-      level_geometry.push_front(
-        (Rectangle){x , y, TILE::SIZE, TILE::SIZE}
-      );
+      level_geometry.push_front(Tile(tileX, tileY));
       
       break;
     }

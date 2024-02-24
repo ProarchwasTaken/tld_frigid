@@ -1,4 +1,6 @@
-#pragma once 
+#pragma once
+
+#include <raylib.h>
 #include "constants.h"
 
 #define LEVEL_COUNT 2
@@ -12,4 +14,12 @@
  * 2 = Player spawnpoint.
  * 3 = Goal Door*/
 extern int LEVELS[LEVEL_COUNT][TILE::ROWS][TILE::COLUMNS];
+
+
+class Tile {
+public:
+  Tile(int tileX, int tileY);
+  Rectangle rect;
+
+};
 

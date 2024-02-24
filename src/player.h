@@ -2,6 +2,7 @@
 
 #include <list>
 #include <raylib.h>
+#include "levels.h"
 
 using std::list;
 
@@ -16,7 +17,7 @@ public:
   Vector2 position;
   Rectangle rect;
 
-  void assignLevelGeometry(list<Rectangle> &level_geometry);
+  void assignLevelGeometry(list<Tile> &level_geometry);
 
   void update();
   void draw();
@@ -28,7 +29,7 @@ private:
   Texture2D texture;
 
   Vector2 spawn_point;
-  list<Rectangle> *level_geometry;
+  list<Tile> *level_geometry;
 
   float velocity_x = 0;
   float velocity_y = 0;
