@@ -21,15 +21,20 @@ struct Game {
 
   unique_ptr<Player> player;
   unique_ptr<GoalDoor> goal_door;
+
   list<Tile*> level_geometry;
+  list<IceSpike*> spike_tiles;
 
   void checkInput();
   void update();
   void draw();
 
   void nextLevel();
+
   void loadLevel(); 
   void checkTile(int tileX, int tileY);
+  void getIceSpikePtrs();
+
   void cleanup();
 };
 
@@ -172,16 +177,38 @@ void Game::loadLevel() {
       Game::checkTile(x, y);
     }
   }
-  std::cout << "Number of solid tiles: " << level_geometry.size() << "\n";
+  std::cout << "Number of tiles: " << level_geometry.size() << "\n";
 
   std::cout << "Assigning address of the level's geometry to player.\n"; 
   player->assignLevelGeometry(level_geometry);
 
-  std::cout << "Assigning Player address to GoalDoor\n";
+  std::cout << "Assigning Player address to GoalDoor.\n";
   goal_door->assignPlayer(*player);
+
+  std::cout << "Getting a list of pointers to every ice spike tile in " <<
+    "the level.\n";
+  getIceSpikePtrs();
+  std::cout << "Ice Spikes detected: " << spike_tiles.size() << "\n";
+
+  std::cout << "Assigning Player address to Spike tiles.\n";
+  for (IceSpike *ice_spike : spike_tiles) {
+    ice_spike->assignPlayer(*player);
+  }
 
   std::cout << "Level has successfully loaded!\n";
   std::cout << "================================\n";
+}
+
+
+/* Since IceSpike is derived from Tile, this function will create a list
+ * of pointers. Each pointer in the list will point to an IceSpike object.
+ * How this is done is by checking the value of the tile_type field.*/
+void Game::getIceSpikePtrs() {
+  for (Tile *tile : level_geometry) {
+    if (tile->tile_type == ICE_SPIKE) {
+      spike_tiles.push_front((IceSpike*)&tile);
+    }
+  }
 }
 
 
@@ -237,5 +264,7 @@ void Game::cleanup() {
     }
     level_geometry.clear();
   }
+
+  spike_tiles.clear();
 }
 
