@@ -30,10 +30,11 @@ Player::Player(int tileX, int tileY) {
   y_accel_seconds = 1;
   y_accel_rate = 0.05;
 
-  starting_temperature = 15;
+  starting_temperature = 30;
   current_temperature = starting_temperature; 
 
-  temp_tick_seconds = 1;
+  default_tick_seconds = 1;
+  icespike_devisor = 4;
   tick_timestamp = GetTime();
 }
 
@@ -105,6 +106,7 @@ void Player::softReset() {
   current_temperature = starting_temperature;
   tick_timestamp = GetTime();
   jumping = false;
+  touchingIceSpikes = false;
 }
 
 /* Responsible for moving the player. The method would be returned
@@ -240,8 +242,16 @@ void Player::jumpSequence() {
  * to do with temperature like performing a soft reset on the player
  * of their temperature hits 0.*/
 void Player::temperatureHandling() {
+  float tick_seconds;
+  if (touchingIceSpikes) {
+    tick_seconds = default_tick_seconds / icespike_devisor;
+  }
+  else {
+    tick_seconds = default_tick_seconds;
+  }
+
   float time_elapsed = GetTime() - tick_timestamp;
-  bool enough_time_passed = time_elapsed >= temp_tick_seconds;
+  bool enough_time_passed = time_elapsed >= tick_seconds;
 
   if (enough_time_passed) {
     --current_temperature;

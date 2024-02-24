@@ -56,11 +56,8 @@ int main() {
   Game game;
   unique_ptr<Player> &player = game.player;
 
-  game.loadLevel();
-  
   std::cout << "Everything seems to be good to go!." << "\n";
   std::cout << "Game directory: "<< GetApplicationDirectory() << "\n";
-
   while (WindowShouldClose() == false) {
     switch (game.state) {
       default:
@@ -129,6 +126,16 @@ void Game::checkInput() {
 void Game::update() {
   player->update();
 
+  for (IceSpike *ice_spike : spike_tiles) {
+    if (CheckCollisionRecs(player->rect, ice_spike->detection_rect)) {
+      player->touchingIceSpikes = true;
+      break;
+    }
+    else {
+      player->touchingIceSpikes = false;
+    }
+  }
+
   if (CheckCollisionRecs(player->rect, goal_door->rect)) {
     std::cout << "Player has reached the goal door.\n";
     nextLevel();
@@ -190,11 +197,6 @@ void Game::loadLevel() {
   getIceSpikePtrs();
   std::cout << "Ice Spikes detected: " << spike_tiles.size() << "\n";
 
-  std::cout << "Assigning Player address to Spike tiles.\n";
-  for (IceSpike *ice_spike : spike_tiles) {
-    ice_spike->assignPlayer(*player);
-  }
-
   std::cout << "Level has successfully loaded!\n";
   std::cout << "================================\n";
 }
@@ -206,7 +208,7 @@ void Game::loadLevel() {
 void Game::getIceSpikePtrs() {
   for (Tile *tile : level_geometry) {
     if (tile->tile_type == ICE_SPIKE) {
-      spike_tiles.push_front((IceSpike*)&tile);
+      spike_tiles.push_front((IceSpike*)*&tile);
     }
   }
 }

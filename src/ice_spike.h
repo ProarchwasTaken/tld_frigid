@@ -8,12 +8,11 @@ public:
   IceSpike(int tileX, int tileY);
   ~IceSpike();
 
-  void assignPlayer(Player &player);
+  Rectangle detection_rect;
+
   void draw();
 
 private:
   Texture2D texture;
   Vector2 position;
-
-  Player *player;
 };

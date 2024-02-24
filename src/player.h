@@ -16,6 +16,7 @@ public:
 
   Vector2 position;
   Rectangle rect;
+  bool touchingIceSpikes = false;
 
   void assignLevelGeometry(list<Tile*> &level_geometry);
 
@@ -59,7 +60,8 @@ private:
   int starting_temperature;
   int current_temperature;
 
-  float temp_tick_seconds;
+  float default_tick_seconds;
+  float icespike_devisor;
   float tick_timestamp;
 
   void softReset();
