@@ -6,6 +6,8 @@
 class IceSpike : public Tile {
 public:
   IceSpike(int tileX, int tileY);
+  ~IceSpike();
+
   void assignPlayer(Player &player);
   void draw();
 

@@ -13,6 +13,10 @@ IceSpike::IceSpike(int tileX, int tileY):
   position = (Vector2){rect.x, rect.y};
 }
 
+IceSpike::~IceSpike() {
+  UnloadTexture(texture);
+}
+
 void IceSpike::assignPlayer(Player &player) {
   this->player = &player;
 }
