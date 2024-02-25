@@ -2,7 +2,7 @@
 
 #include "constants.h"
 
-#define LEVEL_COUNT 2
+#define LEVEL_COUNT 8
 #define SOLID_TILE 1
 #define PLAYER_SPAWNPOINT 2
 #define GOAL_DOOR 3
