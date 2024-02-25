@@ -60,7 +60,7 @@ void drawTitleScreen(Texture2D title_graphic) {
  * 3310 from the 2000s. It ain't much, but I'm glad I got something done,
  * and I learned quite a bit while doing it.*/
 int main() {
-  InitWindow(WINDOW::WIDTH, WINDOW::HEIGHT, "Nokia 3310 Jam 6");
+  InitWindow(WINDOW::WIDTH, WINDOW::HEIGHT, "Frigid");
   SetTargetFPS(FRAMERATE::MAX);
 
   auto canvas = LoadRenderTexture(CANVAS::WIDTH, CANVAS::HEIGHT);
