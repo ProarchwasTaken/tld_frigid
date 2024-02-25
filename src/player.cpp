@@ -30,7 +30,7 @@ Player::Player(int tileX, int tileY) {
   y_accel_seconds = 1;
   y_accel_rate = 0.05;
 
-  starting_temperature = 30;
+  starting_temperature = 20;
   current_temperature = starting_temperature; 
 
   default_tick_seconds = 1;
@@ -124,6 +124,7 @@ void Player::movement() {
   for (Tile *tile : *level_geometry) {
     if (CheckCollisionRecs(rect, tile->rect) == true) {
       rect.x -= velocity_x * (GetFrameTime() * FRAMERATE::TARGET);
+      velocity_x = 0;
       break;
     }
   }
