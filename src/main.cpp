@@ -39,8 +39,9 @@ struct Game {
 };
 
 
-void drawTitleScreen() {
-  DrawText("Press [Z]", 18, 36, 10, COLOR::DARK);
+void drawTitleScreen(Texture2D title_graphic) {
+  DrawTexture(title_graphic, 0, 0, WHITE);
+  DrawText("Press [Z]", 18, 36, 10, COLOR::LIGHT);
 }
 
 
@@ -52,6 +53,8 @@ int main() {
   Rectangle source = (Rectangle){0, 0, CANVAS::WIDTH, -CANVAS::HEIGHT};
   Rectangle dest = (Rectangle){0, 0, WINDOW::WIDTH, WINDOW::HEIGHT};
   Vector2 origin = {0, 0};
+
+  Texture2D title_graphic = LoadTexture("sprites/main_art.png");
 
   Game game;
   unique_ptr<Player> &player = game.player;
@@ -87,7 +90,7 @@ int main() {
           break;
           
         case TITLE: {
-          drawTitleScreen();
+          drawTitleScreen(title_graphic);
           break;
         }
         
@@ -107,6 +110,7 @@ int main() {
   }
 
   game.cleanup();
+  UnloadTexture(title_graphic);
   UnloadRenderTexture(canvas);
   std::cout << "Thanks for playing!\n";
   return 0;
