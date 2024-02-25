@@ -4,6 +4,9 @@ libraries = -lraylib -lopengl32 -lgdi32 -lwinmm
 debug: $(dependencies)
 	clang++ --debug -O0 $(dependencies) $(libraries) -o out
 
+final: $(dependencies)
+	g++ -O3 -mwindows $(dependencies) $(libraries) -o game
+
 main.o: src/main.cpp
 	g++ -c src/main.cpp
 

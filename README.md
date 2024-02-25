@@ -60,3 +60,13 @@ checkpoints, and it raises your temperature when standing near it.
 The story could be that you're stuck in a restaurant's freezer and you
 must escape before freezing to death. There could also be hazards the 
 decrease the player's temperature at a faster rate.
+
+
+# After Thoughts
+It's been a while since I last updated this. I've finished the game and it
+functions alright. It's not the best, but I just wanted to get something
+done, and learn more about C++
+
+It was a fun side project though. The reason why I decided to participate
+in this GameJam is to hopefully get my name out there and encourage people
+to check out my main project. If you're reading this, thanks for playing!

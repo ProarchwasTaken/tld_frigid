@@ -39,12 +39,26 @@ struct Game {
 };
 
 
+/* The game starts at the title screen so this is called every frame. So
+ * it would draw the stuff needed.*/
 void drawTitleScreen(Texture2D title_graphic) {
   DrawTexture(title_graphic, 0, 0, WHITE);
   DrawText("Press [Z]", 18, 36, 10, COLOR::LIGHT);
 }
 
 
+/* Hi everyone, this game is a platformer with slippery controls.
+ * The player has a temperature counter at constantly ticks down, ticking
+ * down faster if they are near Ice Spikes. 
+ *
+ * If the player falls down a bottomless pit, or their temperature counter
+ * hits 0, the level will reset. The player's goal is to reach the door at
+ * the end of each level. There are 8 levels in this game.
+ *
+ * This game is made in under 10 days for the Nokia 3310 6 GameJam. Where
+ * the game has to be made in within the restrictions of an actual Nokia
+ * 3310 from the 2000s. It ain't much, but I'm glad I got something done,
+ * and I learned quite a bit while doing it.*/
 int main() {
   InitWindow(WINDOW::WIDTH, WINDOW::HEIGHT, "Nokia 3310 Jam 6");
   SetTargetFPS(FRAMERATE::MAX);
@@ -192,9 +206,6 @@ void Game::loadLevel() {
 
   std::cout << "Assigning address of the level's geometry to player.\n"; 
   player->assignLevelGeometry(level_geometry);
-
-  std::cout << "Assigning Player address to GoalDoor.\n";
-  goal_door->assignPlayer(*player);
 
   std::cout << "Getting a list of pointers to every ice spike tile in " <<
     "the level.\n";

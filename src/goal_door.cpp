@@ -1,6 +1,5 @@
 #include <raylib.h>
 #include "constants.h"
-#include "player.h"
 #include "goal_door.h"
 
 
@@ -15,10 +14,6 @@ GoalDoor::GoalDoor(int tileX, int tileY) {
 // GoalDoor Destructor
 GoalDoor::~GoalDoor() {
   UnloadTexture(texture);
-}
-
-void GoalDoor::assignPlayer(Player &player) {
-  this->player = &player;
 }
 
 void GoalDoor::draw() {
